@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Invite for the best night of your life</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg1:#ffe3ec;--bg2:#ffc4d8;--card:rgba(255,255,255,.78);--ink:#4a1530;--muted:#8a4a65;--accent:#e8346f;--accent2:#ff6b9a;--line:#f3b3c8;--btnText:#fff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg1:#2a0f1d;--bg2:#4a1730;--card:rgba(60,22,42,.8);--ink:#ffe6ef;--muted:#e4a9c0;--accent:#ff5c93;--accent2:#ff8db3;--line:#7a3552}}
+:root[data-theme="dark"]{--bg1:#2a0f1d;--bg2:#4a1730;--card:rgba(60,22,42,.8);--ink:#ffe6ef;--muted:#e4a9c0;--accent:#ff5c93;--accent2:#ff8db3;--line:#7a3552}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;min-height:100vh;font-family:'Quicksand',system-ui,sans-serif;color:var(--ink);background:linear-gradient(160deg,var(--bg1),var(--bg2));display:flex;align-items:center;justify-content:center;padding:20px;overflow-x:hidden}
+.hearts{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.hearts span{position:absolute;bottom:-40px;opacity:0;animation:rise linear infinite}
+@keyframes rise{0%{transform:translateY(0) rotate(0);opacity:0}10%{opacity:.8}100%{transform:translateY(-110vh) rotate(40deg);opacity:0}}
+.card{position:relative;z-index:1;width:100%;max-width:520px;background:var(--card);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:28px;padding:34px 26px;text-align:center;box-shadow:0 20px 60px rgba(232,52,111,.25)}
+h1{font-family:'Dancing Script',cursive,serif;font-size:clamp(2.1rem,8vw,3.1rem);line-height:1.15;margin:8px 0 6px;color:var(--accent)}
+p{line-height:1.55;margin:8px 0}
+.muted{color:var(--muted)}
+.big{font-size:4rem;animation:beat 1.2s ease-in-out infinite;display:inline-block}
+@keyframes beat{0%,100%{transform:scale(1)}15%{transform:scale(1.2)}30%{transform:scale(1)}45%{transform:scale(1.15)}}
+.row{display:flex;gap:16px;justify-content:center;align-items:center;flex-wrap:wrap;margin:24px 0 8px;min-height:80px}
+button,.btn{font:inherit;font-weight:700;border:0;border-radius:999px;padding:14px 30px;cursor:pointer;color:var(--btnText);text-decoration:none;display:inline-block;transition:transform .15s,box-shadow .15s}
+.yes{background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 8px 22px rgba(232,52,111,.4);transition:transform .25s,font-size .25s}
+.yes:hover{transform:scale(1.06)}
+.no{background:#8c7a84;transition:left .25s ease,top .25s ease;z-index:50}
+.ghost{background:transparent;color:var(--accent);border:2px solid var(--accent)}
+.caption{min-height:1.6em;font-style:italic;color:var(--muted)}
+label{display:block;text-align:left;font-weight:700;margin:16px 0 6px;font-size:.95rem}
+input[type=date],input[type=email],input[type=text]{width:100%;font:inherit;padding:12px 14px;border-radius:14px;border:2px solid var(--line);background:var(--card);color:var(--ink)}
+input:focus{outline:3px solid var(--accent2);border-color:var(--accent)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{background:transparent;color:var(--ink);border:2px solid var(--line);padding:9px 14px;font-weight:600;font-size:.92rem}
+.chip[aria-pressed="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
+.err{color:var(--accent);font-weight:700;min-height:1.4em;margin-top:12px}
+.letter{text-align:left;background:var(--card);border:2px dashed var(--line);border-radius:18px;padding:20px 22px;margin:18px 0;font-family:'Dancing Script',cursive,serif;font-size:1.3rem;line-height:1.5;white-space:pre-wrap}
+.actions{display:flex;flex-direction:column;gap:12px;align-items:stretch;margin-top:10px}
+.actions .btn,.actions button{text-align:center}
+.details{font-weight:700;color:var(--accent)}
+@media (prefers-reduced-motion:reduce){.hearts{display:none}.big{animation:none}}
+</style>
+</head>
+<body>
+<div class="hearts" id="hearts" aria-hidden="true"></div>
+
+<main class="card">
+  <section id="s1">
+    <div class="big" aria-hidden="true">💖</div>
+    <h1>Would you go out on a date with me?</h1>
+    <div class="row" id="btnRow">
+      <button class="yes" id="yes" type="button">Yes 💕</button>
+      <button class="no" id="no" type="button">No</button>
+    </div>
+    <p class="caption" id="caption" aria-live="polite"></p>
+  </section>
+
+  <section id="s2" hidden>
+    <div class="big" aria-hidden="true">🥰</div>
+    <h1>Yay! Let’s plan it</h1>
+    <p class="muted">When are you free? Choose what suits you best.</p>
+    <label for="date">Which day?</label>
+    <input type="date" id="date">
+    <label>What time?</label>
+    <div class="chips" id="times" role="group" aria-label="Time">
+      <button type="button" class="chip" data-time="12:30">Lunch · 12:30</button>
+      <button type="button" class="chip" data-time="15:00">Afternoon · 3:00</button>
+      <button type="button" class="chip" data-time="19:00">Dinner · 7:00</button>
+      <button type="button" class="chip" data-time="20:30">Evening · 8:30</button>
+    </div>
+    <label for="place">Where would you like to go?</label>
+    <input type="text" id="place" maxlength="80">
+    <div id="recs">
+      <p class="muted" style="text-align:left;margin:16px 0 6px"><strong>Not sure? Some ideas in Central London</strong></p>
+      <div class="chips">
+        <button type="button" class="chip" data-place="Sky Garden">🌆 Sky Garden</button>
+        <button type="button" class="chip" data-place="Covent Garden &amp; Seven Dials">🎭 Covent Garden</button>
+        <button type="button" class="chip" data-place="Southbank &amp; Borough Market">🌉 Southbank &amp; Borough Market</button>
+        <button type="button" class="chip" data-place="Hyde Park &amp; the Serpentine">🌳 Hyde Park</button>
+      </div>
+      <p class="muted" style="text-align:left;margin:16px 0 6px"><strong>Or closer to Greenford (Central line)</strong></p>
+      <div class="chips">
+        <button type="button" class="chip" data-place="Holland Park &amp; the Kyoto Garden">🌸 Holland Park</button>
+        <button type="button" class="chip" data-place="Westfield London, White City">🛍️ Westfield London</button>
+        <button type="button" class="chip" data-place="Walpole Park &amp; Pitzhanger Manor, Ealing">🏡 Ealing &amp; Walpole Park</button>
+        <button type="button" class="chip" data-place="A Grand Union Canal walk, Greenford">🚶 Canal walk, Greenford</button>
+      </div>
+    </div>
+    <div class="err" id="err2" role="alert"></div>
+    <div class="actions"><button class="yes" id="next" type="button">Next 💌</button></div>
+  </section>
+
+  <section id="s3" hidden>
+    <div class="big" aria-hidden="true">📬</div>
+    <h1>Where should I send your invitation?</h1>
+    <p class="muted">So you don’t forget (not that I’ll let you 😉)</p>
+    <p class="details" id="summary"></p>
+    <label for="name">Your name</label>
+    <input type="text" id="name" autocomplete="given-name" placeholder="Beautiful name here">
+    <label for="email">Your Gmail</label>
+    <input type="email" id="email" autocomplete="email" placeholder="you@gmail.com">
+    <div class="err" id="err3" role="alert"></div>
+    <div class="actions">
+      <button class="yes" id="confirm" type="button">Confirm our date 💘</button>
+      <button class="ghost" id="back" type="button">← Change the time</button>
+    </div>
+  </section>
+
+  <section id="s4" hidden>
+    <div class="big" aria-hidden="true">💞</div>
+    <h1>It’s a date!</h1>
+    <p class="details" id="summary2"></p>
+    <div class="letter" id="letter"></div>
+    <p class="details" id="status" aria-live="polite"></p>
+    <div class="actions" id="actions" hidden>
+      <a class="btn yes" id="cal" target="_blank" rel="noopener">📅 Add to calendar &amp; send invite</a>
+      <a class="btn ghost" id="mail" target="_blank" rel="noopener">✉️ Email me the invitation</a>
+      <button class="ghost" id="copy" type="button">Copy the letter</button>
+    </div>
+    <p class="muted" id="copied" aria-live="polite"></p>
+  </section>
+</main>
+
+<script>
+(function(){
+  // ✏️ EDIT THESE: your name and email (so you get a copy of her reply)
+  var MY_NAME = "";
+  var MY_EMAIL = "rjosh6140@gmail.com";
+
+  // ✉️ AUTO-EMAIL (EmailJS): paste your 3 values here to send emails automatically.
+  // Leave blank and the page falls back to calendar/email buttons.
+  var EMAILJS = {service:"service_3hf6dbo", template:"template_g0bf92k", key:"S2oxH3nh7TWHo-J2J"};
+
+  var $ = function(id){return document.getElementById(id)};
+  var state = {date:"",time:"",act:"",name:"",email:""};
+
+  // Floating hearts
+  var hs = $("hearts"), em = ["💗","💖","💕","💘","🌸","✨"];
+  for(var i=0;i<18;i++){
+    var s = document.createElement("span");
+    s.textContent = em[i % em.length];
+    s.style.left = (Math.random()*100)+"%";
+    s.style.fontSize = (14+Math.random()*26)+"px";
+    s.style.animationDuration = (9+Math.random()*10)+"s";
+    s.style.animationDelay = (-Math.random()*18)+"s";
+    hs.appendChild(s);
+  }
+
+  function show(id){
+    ["s1","s2","s3","s4"].forEach(function(x){$(x).hidden = (x!==id)});
+    var no = $("no"); if(id!=="s1"){no.style.display="none"}
+    window.scrollTo(0,0);
+  }
+
+  // The runaway "No" button
+  var no = $("no"), yes = $("yes"), count = 0, px = -999, py = -999;
+  var lines = ["Are you sure?","Hmm, interesting choice 🤔","You’re too slow 😏","Nice try","The Yes button looks nicer 👀","I can do this all day","Think of the cake 🍰","Bold of you to keep trying","Okay, fair effort 😄"];
+  document.addEventListener("pointermove",function(e){px=e.clientX;py=e.clientY});
+  function dodge(){
+    var w = no.offsetWidth, h = no.offsetHeight, m = 12;
+    var maxX = window.innerWidth - w - m, maxY = window.innerHeight - h - m;
+    var yr = yes.getBoundingClientRect(), best = null, tries = 0;
+    while(tries++ < 40){
+      var x = m + Math.random()*Math.max(0,maxX-m), y = m + Math.random()*Math.max(0,maxY-m);
+      var cx = x+w/2, cy = y+h/2;
+      var farFromPointer = Math.hypot(cx-px, cy-py) > 160;
+      var overlapsYes = x < yr.right+10 && x+w > yr.left-10 && y < yr.bottom+10 && y+h > yr.top-10;
+      best = {x:x,y:y};
+      if(farFromPointer && !overlapsYes) break;
+    }
+    no.style.position = "fixed";
+    no.style.left = best.x+"px";
+    no.style.top = best.y+"px";
+    count++;
+    $("caption").textContent = lines[(count-1) % lines.length];
+    var size = Math.min(1+count*0.07, 1.7);
+    yes.style.transform = "scale("+size+")";
+    yes.style.margin = (count*2)+"px";
+  }
+  no.addEventListener("pointerenter",dodge);
+  no.addEventListener("focus",dodge);
+  no.addEventListener("touchstart",function(e){e.preventDefault();dodge()},{passive:false});
+  no.addEventListener("click",function(e){e.preventDefault();dodge()});
+
+  yes.addEventListener("click",function(){
+    var d = $("date"), t = new Date(), pad = function(n){return String(n).padStart(2,"0")};
+    var tm = new Date(t.getFullYear(),t.getMonth(),t.getDate()+1);
+    d.min = tm.getFullYear()+"-"+pad(tm.getMonth()+1)+"-"+pad(tm.getDate());
+    d.max = t.getFullYear()+"-12-31";
+    show("s2");
+  });
+
+  // Chips (single select)
+  function chips(id,key,attr){
+    $(id).addEventListener("click",function(e){
+      var b = e.target.closest(".chip"); if(!b) return;
+      Array.prototype.forEach.call($(id).children,function(c){c.setAttribute("aria-pressed","false")});
+      b.setAttribute("aria-pressed","true");
+      state[key] = b.getAttribute(attr);
+      if(key==="act") state.actLabel = b.textContent;
+      if(key==="time") state.timeLabel = b.textContent;
+    });
+  }
+  chips("times","time","data-time");
+  $("recs").addEventListener("click",function(e){
+    var b = e.target.closest(".chip"); if(!b) return;
+    Array.prototype.forEach.call($("recs").querySelectorAll(".chip"),function(c){c.setAttribute("aria-pressed","false")});
+    b.setAttribute("aria-pressed","true");
+    var tmp = document.createElement("span"); tmp.innerHTML = b.getAttribute("data-place");
+    $("place").value = tmp.textContent;
+  });
+
+  function niceDate(){
+    var p = state.date.split("-");
+    var dt = new Date(+p[0],+p[1]-1,+p[2]);
+    return dt.toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long"});
+  }
+  function niceTime(){
+    var p = state.time.split(":"), h = +p[0], ap = h>=12?"pm":"am";
+    return ((h+11)%12+1)+":"+p[1]+" "+ap;
+  }
+
+  $("next").addEventListener("click",function(){
+    state.date = $("date").value;
+    var err = $("err2");
+    if(!state.date){err.textContent="Please pick a day 💗";return}
+    var p = state.date.split("-"), chosen = new Date(+p[0],+p[1]-1,+p[2]), today = new Date(); today.setHours(0,0,0,0);
+    if(chosen <= today){err.textContent="Pick a day in the future – tomorrow or later 💗";return}
+    if(chosen.getFullYear() !== today.getFullYear()){err.textContent="Let’s keep it this year – pick a day before 31 December 💗";return}
+    if(!state.time){err.textContent="Please choose a time 💗";return}
+    var place = $("place").value.trim();
+    if(!place){err.textContent="Tell me where you’d like to go 💗";return}
+    state.place = place;
+    err.textContent = "";
+    $("summary").textContent = state.place+" · "+niceDate()+" · "+niceTime();
+    show("s3");
+  });
+  $("back").addEventListener("click",function(){show("s2")});
+
+  function pad(n){return String(n).padStart(2,"0")}
+  function stamp(dt){return dt.getFullYear()+pad(dt.getMonth()+1)+pad(dt.getDate())+"T"+pad(dt.getHours())+pad(dt.getMinutes())+"00"}
+
+  function sendEmail(when){
+    var st = $("status"), ac = $("actions");
+    if(!EMAILJS.service || !EMAILJS.template || !EMAILJS.key){ac.hidden = false; return}
+    st.textContent = "Sending your invitation…";
+    var body = {service_id:EMAILJS.service, template_id:EMAILJS.template, user_id:EMAILJS.key,
+      template_params:{to_email:state.email, my_email:MY_EMAIL, to_name:state.name||"", subject:"Our date: "+when, message:state.letter, when:when}};
+    fetch("https://api.emailjs.com/api/v1.0/email/send",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)})
+      .then(function(r){if(!r.ok) throw new Error(r.status); st.textContent = "Sent ✅ Check your inbox – a copy has gone to me too."})
+      .catch(function(){st.textContent = "Couldn’t send automatically – use the buttons below instead."; ac.hidden = false});
+  }
+
+  $("confirm").addEventListener("click",function(){
+    var name = $("name").value.trim(), email = $("email").value.trim(), err = $("err3");
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){err.textContent="Please enter a valid email so I can send your invitation 💌";return}
+    err.textContent = "";
+    state.name = name; state.email = email;
+
+    var who = name ? name : "you";
+    var sign = MY_NAME;
+    var when = state.place+", "+niceDate()+" at "+niceTime();
+    var greeting = name ? "Hey "+name+"," : "Hey,";
+    var poem = greeting+"\n\n"+
+"You’re amazing and you’re fun to be around. I think you’ll have a beautiful time.\n\n"+
+"Here’s the plan:\n"+when+"\n\n"+
+"See you then."+(sign ? "\n"+sign : "");
+    state.letter = poem;
+
+    $("summary2").textContent = when;
+    $("letter").textContent = poem;
+
+    var s = new Date(state.date+"T"+state.time+":00"), e = new Date(s.getTime()+2*60*60*1000);
+    var title = "💕 Our date at "+state.place;
+    var details = poem;
+    var cal = "https://calendar.google.com/calendar/render?action=TEMPLATE"+
+      "&text="+encodeURIComponent(title)+
+      "&dates="+stamp(s)+"/"+stamp(e)+
+      "&details="+encodeURIComponent(details)+
+      "&location="+encodeURIComponent(state.place)+
+      "&add="+encodeURIComponent(email+(MY_EMAIL?","+MY_EMAIL:""));
+    $("cal").href = cal;
+
+    var mail = "mailto:"+encodeURIComponent(email).replace(/%40/g,"@")+"?subject="+encodeURIComponent("💌 Our date: "+when)+
+      (MY_EMAIL?"&cc="+encodeURIComponent(MY_EMAIL).replace(/%40/g,"@"):"")+
+      "&body="+encodeURIComponent(poem);
+    $("mail").href = mail;
+    $("actions").hidden = true; $("status").textContent = "";
+    show("s4");
+    sendEmail(when);
+  });
+
+  $("copy").addEventListener("click",function(){
+    var msg = $("copied");
+    try{
+      navigator.clipboard.writeText(state.letter).then(function(){msg.textContent="Copied! 💗"},function(){msg.textContent="Couldn’t copy – select the text instead."});
+    }catch(e){msg.textContent="Couldn’t copy – select the text instead."}
+  });
+})();
+</script>
+</body>
+</html>
